@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Hero Section with Adjusted Carousel Height -->
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" style="height: 60vh; overflow: hidden;">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/image1.jpg' %}" class="d-block w-100" alt="Image 1" style="height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/image2.jpg' %}" class="d-block w-100" alt="Image 2" style="height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/image3.jpg' %}" class="d-block w-100" alt="Image 3" style="height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/image4.jpg' %}" class="d-block w-100" alt="Image 4" style="height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content below carousel -->
+    <div class="row justify-content-center mt-2">
+        <div class="col-md-5">
+            <h2>Welcome to Hostel Management</h2>
+            <p>Explore available rooms and manage your bookings seamlessly.</p>
+        </div>
+    </div>
+    <section id="intro" class="py-5">
+    <div class="container text-center">
+      <h2>Welcome to the Hostel Management System</h2>
+      <p>Our platform connects students with various hostel options and helps landlords manage their properties with ease.</p>
+    </div>
+  </section>
+
+  <!-- Mission and Vision Section -->
+  <section id="mission-vision" class="bg-dark text-white py-5">
+    <div class="container text-center">
+      <h2>Our Mission & Vision</h2>
+      <div class="row">
+        <!-- Mission -->
+        <div class="col-md-6">
+          <h4>Mission</h4>
+          <p>To provide students with accessible, affordable, and safe accommodation options, while offering landlords a seamless way to manage their properties.</p>
+        </div>
+        <!-- Vision -->
+        <div class="col-md-6">
+          <h4>Vision</h4>
+          <p>To be the leading platform for hostel management and student accommodation in the region, fostering a better living experience for both parties.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+    <div class="row mt-6">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">For Landlords</h5>
+                    <p class="card-text">Manage your rooms, view bookings, and upload photos of your properties.</p>
+                    <a href="{% url 'landlord_dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">For Students</h5>
+                    <p class="card-text">Browse available rooms, book a hostel, and view your bookings.</p>
+                    <a href="{% url 'student_dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add padding to the bottom to avoid footer overlap -->
+    <div style="padding-bottom: 100px;"></div> <!-- Adjust this value as necessary -->
+
+{% endblock %}

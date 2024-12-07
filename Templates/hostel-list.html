@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Hostels Available</h2>
+        <form method="get" class="mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" name="proximity" class="form-control" placeholder="Search by proximity" value="{{ request.GET.proximity }}">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="amenities" class="form-control" placeholder="Search by amenities" value="{{ request.GET.amenities }}">
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            {% for hostel in hostels %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ hostel.image.url }}" class="card-img-top" alt="{{ hostel.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ hostel.name }}</h5>
+                            <p class="card-text">{{ hostel.proximity_to_campus }} | Amenities: {{ hostel.amenities }}</p>
+                            <a href="{% url 'room_list' hostel.id %}" class="btn btn-primary">View Rooms</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No hostels found with the selected criteria.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

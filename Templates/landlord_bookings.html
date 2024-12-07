@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Landlord Bookings{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Bookings for Your Rooms</h2>
+
+    {% if bookings %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Room Number</th>
+                    <th>Student Name</th>
+                    <th>Booking Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.room.room_number }}</td>
+                        <td>{{ booking.student.user.username }}</td>
+                        <td>{{ booking.date_booked }}</td>
+                        <td>
+                            {% if booking.payment_status == 'Paid' %}
+                                <span class="badge bg-success">Paid</span>
+                            {% else %}
+                                <span class="badge bg-warning">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No bookings found for your rooms.</p>
+    {% endif %}
+</div>
+{% endblock %}

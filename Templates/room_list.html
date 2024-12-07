@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Available Rooms</h2>
+
+        <!-- Search and Filter Bar -->
+        <form method="get" class="mb-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="text" name="search" class="form-control" placeholder="Search by Room Number or Rent" value="{{ request.GET.search }}">
+                </div>
+                <div class="col-md-3">
+                    <select name="landlord" class="form-control">
+                        <option value="">Select Landlord</option>
+                        {% for landlord in landlords %}
+                            <option value="{{ landlord.id }}" {% if request.GET.landlord == landlord.id %} selected {% endif %}>{{ landlord.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Rooms Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Rent</th>
+                        <th>Landlord</th>
+                        <th>Actions</th>
+                        <th>Room Photo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                        <tr>
+                            <td>{{ room.room_number }}</td>
+                            <td>{{ room.rent }}</td>
+                            <td>{{ room.landlord.name }}</td>
+                            <td>
+                                {% if room.is_available %}
+                                    <a href="{% url 'book_room' room.id %}" class="btn btn-success btn-sm">Book Room</a>
+                                {% else %}
+                                    <span class="text-danger">Not Available</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if room.room_photo %}
+                                    <img src="{{ room.room_photo.url }}" alt="Room Photo" class="img-thumbnail" width="100">
+                                {% else %}
+                                    <span>No photo uploaded</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No rooms available</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

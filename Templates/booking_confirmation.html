@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Booking Confirmation</h2>
+    <p>Thank you, {{ booking.student.user.username }}! Your booking has been confirmed.</p>
+    <p><strong>Room Number:</strong> {{ booking.room.room_number }}</p>
+    <p><strong>Rent:</strong> {{ booking.room.rent }}</p>
+    <p><strong>Landlord:</strong> {{ booking.room.landlord.name }}</p>
+    <a href="{% url 'student_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+</div>
+{% endblock %}

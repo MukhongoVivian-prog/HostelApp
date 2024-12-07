@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Welcome Banner -->
+    <div class="jumbotron text-center bg-primary text-white">
+        <h2>Welcome, {{ user.username }}!</h2>
+        <p>Explore available hostels and make bookings with ease.</p>
+    </div>
+
+    <!-- Hostels Section -->
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Available Hostels</h3>
+            <p class="text-muted">Select a hostel to view available rooms.</p>
+        </div>
+    </div>
+
+    <!-- Display Hostels and Their Rooms -->
+    <div class="accordion" id="hostelAccordion">
+        {% for hostel in hostels %}
+            <div class="card mb-3">
+                <div class="card-header" id="heading{{ hostel.id }}">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ hostel.id }}" aria-expanded="true" aria-controls="collapse{{ hostel.id }}">
+                            {{ hostel.name }} - {{ hostel.proximity_to_campus }} km from campus
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapse{{ hostel.id }}" class="collapse" aria-labelledby="heading{{ hostel.id }}" data-parent="#hostelAccordion">
+                    <div class="card-body">
+                        <p><strong>Amenities:</strong> {{ hostel.amenities }}</p>
+
+                        <div class="row">
+                            {% if hostel.rooms.all %}
+                                {% for room in hostel.rooms.all %}
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card shadow-sm">
+                                            <img src="{{ room.room_photo.url }}" alt="Room Image" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Room Number: {{ room.room_number }}</h5>
+                                                <p class="card-text">
+                                                    <strong>Rent:</strong> ${{ room.rent }}<br>
+                                                    <strong>Availability:</strong>
+                                                    {% if room.is_available %}
+                                                        <span class="text-success">Available</span>
+                                                    {% else %}
+                                                        <span class="text-danger">Not Available</span>
+                                                    {% endif %}
+                                                </p>
+                                                <h6>Landlord's Contact:</h6>
+                                                <p>
+                                                    <strong>Name:</strong> {{ room.landlord.name }}<br>
+                                                    <strong>Email:</strong> <a href="mailto:{{ room.landlord.user.email }}">{{ room.landlord.user.email }}</a><br>
+                                                    <strong>Phone:</strong> {{ room.landlord.contact_number }}
+                                                </p>
+                                                {% if room.is_available %}
+                                                    <a href="{% url 'book_room' room.id %}" class="btn btn-primary btn-block">Book Room</a>
+                                                {% else %}
+                                                    <button class="btn btn-danger btn-block" disabled>Room Not Available</button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="col-12">
+                                    <p>No rooms available in this hostel.</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <p class="text-center">No hostels are available at the moment. Please check back later!</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Landlord Dashboard{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Dashboard Heading -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="display-4 text-center text-primary">Welcome to Your Landlord Dashboard</h1>
+                <p class="lead text-center">Manage your rooms, view bookings, and oversee payments all in one place.</p>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Profile Information</h3>
+                        <hr>
+                        {% if user.landlord.profile_photo %}
+                            <div class="text-center">
+                                <img src="{{ user.landlord.profile_photo.url }}" alt="Profile Photo" class="img-thumbnail" width="150">
+                            </div>
+                            <p class="text-center mt-3">Your current profile photo</p>
+                        {% else %}
+                            <div class="text-center">
+                                <img src="" alt="Default Profile" class="img-thumbnail" width="150">
+                            </div>
+                            <p class="text-center mt-3">No profile photo uploaded. Add one now!</p>
+                        {% endif %}
+                        <div class="text-center mt-4">
+                            <a href="{% url 'upload_profile_photo' %}" class="btn btn-primary btn-lg">Upload Profile Photo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Features -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-5">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Manage Your Rooms</h5>
+                        <p class="card-text">Easily add, update, and remove rooms for your tenants. Stay on top of your property management!</p>
+                        <a href="{% url 'add_room' %}" class="btn btn-outline-success btn-lg">View & Manage Rooms</a>
+                    </div>
+                </div>
+            </div>
+
+           <div class="col-md-5">
+    <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title text-info">Track Bookings</h5>
+            <p class="card-text">Monitor bookings and view your tenant's details with ease. Keep track of all your reservations.</p>
+            <a href="{% url 'landlord_bookings' %}" class="btn btn-outline-info btn-lg">View Bookings</a>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-5">
+    <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title text-warning">Payments and Earnings</h5>
+            <p class="card-text">Stay up to date with your payments. View your earnings and manage any pending transactions.</p>
+            <a href="{% url 'landlord_payments' %}" class="btn btn-outline-warning btn-lg">View Payments</a>
+        </div>
+    </div>
+</div>
+
+        <!-- Tips Section -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-10">
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">Landlord Tip:</h5>
+                    <p class="mb-0">Add a clear profile photo to make your account look more professional and approachable to students looking for accommodation. Don't forget to regularly update your room availability!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

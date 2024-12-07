@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">My Rooms</h2>
+
+    <!-- Add New Room Button -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'add_room' %}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add New Room</a>
+    </div>
+
+    <!-- Room List -->
+    {% if rooms %}
+        <div class="row">
+            {% for room in rooms %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="{% static 'images/image4.jpg' %}" class="card-img-top" alt="Room Image" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ room.room_number }}</h5>
+                            <p class="card-text">Rent: KSh {{ room.rent }}</p>
+                            <p class="card-text">Availability: <strong>{{ room.is_available|yesno:"Available,Not Available" }}</strong></p>
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                                <a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            <strong>No rooms available</strong>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
